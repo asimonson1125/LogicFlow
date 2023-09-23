@@ -1,0 +1,30 @@
+body {
+    margin: 0;
+}
+
+#nav {
+    position: static;
+    top: 0;
+    display: flex;
+    justify-content: left;
+    background-color: darkgray;
+}
+
+#logo {
+    width: 3em;
+}
+
+#title {
+    margin: 0.5em;
+}
+
+#flowchart {
+    border: solid black 3px;
+}
+
+.node {
+    border: solid black 1px;
+    display: inline-block;
+    margin: 0.25em;
+    padding: 0.25em;
+}

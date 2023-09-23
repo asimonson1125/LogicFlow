@@ -1,0 +1,7 @@
+<div id="flowchart">
+{% for i in objects %}
+<div id="{{i['id']}}" class="node">
+    <p>{{i['text']}}</p>
+</div>
+{% endfor %}
+</div>
