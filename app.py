@@ -3,7 +3,6 @@ import os
 import json
 
 app = flask.Flask(__name__)
-app.config.from_pyfile(os.path.join(os.getcwd(), "config.py"))
 
 @app.route('/')
 def home():
@@ -61,6 +60,8 @@ sampleString = """
   {"id": 20, "parent": 9, "text": "Python is used in Data Science and analytics, with more job opportunities than the R language."}
 ]}
 """
+
+
 
 if __name__ == '__main__':
     app.run()
