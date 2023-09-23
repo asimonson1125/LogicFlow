@@ -28,3 +28,7 @@ body {
     margin: 0.25em;
     padding: 0.25em;
 }
+
+.inputpad {
+    padding: 0.5em;
+}
