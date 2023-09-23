@@ -1,5 +1,6 @@
 import flask
 import os
+import json
 
 app = flask.Flask(__name__)
 app.config.from_pyfile(os.path.join(os.getcwd(), "config.py"))
@@ -11,6 +12,9 @@ def home():
 @app.route('/example')
 def example_flowchart():
     return flask.render_template('flowchart.html', objects=sample)
+
+def gpt2objects(instring):
+    return json.loads(instring)
 
 sample = [
   {"id": 1, "parent": None, "text": 'You can always find professional homework help online for Python.'},
