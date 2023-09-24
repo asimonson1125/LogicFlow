@@ -138,17 +138,34 @@ form {
     overflow-x: scroll;
 }
 
+.toolholder{
+    display:flex;
+    background-color: rgb(64, 64, 80);
+    align-items: center;
+}
+
 .div1 {
     width: 2em;
+    height: 1.5em;
+    border: none;
+    border-left: solid black 2px;
     font-size: x-large;
     background-color: rgb(64, 64, 80);
-    border: none;
     color: rgb(183, 183, 197);
     transition: 0.5s;
 }
 
 .div1:hover {
     background-color: rgb(33, 33, 33);
+}
+
+.standardSize {
+    font-size: inherit;
+}
+
+.standardSize::before{
+    font-size: x-large;
+    content:" "
 }
 
 .headCarrier {

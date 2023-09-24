@@ -1,6 +1,7 @@
 const spaceBetween = 30;
 let b;
 let selected = null;
+let previousSelection = null;
 
 async function submitForm(id) {
   document.getElementById("splash").classList.remove("hidden");
@@ -38,18 +39,6 @@ async function submitForm(id) {
       // let parentloc = {x: paper.options.width/2, y: 0};
       widtharr = [];
       if (obj["parent"] !== "None" && obj["parent"] !== null) {
-        var arrow = new joint.shapes.standard.Link();
-        arrow.attr({
-          line: {
-            stroke: "white",
-            strokeWidth: 2,
-            wrapper: {
-              connection: true,
-              strokeWidth: 10,
-              strokeLinejoin: "round",
-            },
-          },
-        });
         parentRect = b["objects"][obj["parent"] - 1];
         if (parentRect["childWidths"] == undefined) {
           parentRect["childWidths"] = rect.attributes.size.width + spaceBetween;
@@ -73,10 +62,7 @@ async function submitForm(id) {
         parentRect["children"].push(obj);
         // parentloc = parentRect.attributes.position
 
-        arrow.target(rect);
-        arrow.source(parentRect["reference"]);
-        arrow.addTo(graph);
-        objects.push(arrow);
+        makeArrow(parentRect["reference"], rect);
       }
 
       objects.push(rect);
@@ -190,6 +176,7 @@ function selectObject(object) {
   for (let i = 0; i < b["objects"].length; i++) {
     if (b['objects'][i]['reference'] == object){
       t = b["objects"][i].text.replaceAll("\n", " ");
+      previousSelection = selected;
       selected = b["objects"][i];
       break;
     }
@@ -226,4 +213,29 @@ function scalePaper(scale){
 function scalePaper(){
   let scale = document.getElementById('scaler').value;
   paper.scale(scale,scale);
+}
+
+function joinNodes(){
+  if(previousSelection !== null){
+    makeArrow(previousSelection['reference'], selected['reference'])
+  }
+}
+
+function makeArrow(source, target){
+  var arrow = new joint.shapes.standard.Link();
+        arrow.attr({
+          line: {
+            stroke: "white",
+            strokeWidth: 2,
+            wrapper: {
+              connection: true,
+              strokeWidth: 10,
+              strokeLinejoin: "round",
+            },
+          },
+        });
+        arrow.target(target);
+        arrow.source(source);
+        arrow.addTo(graph);
+        objects.push(arrow);
 }
