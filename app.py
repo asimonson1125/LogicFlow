@@ -1,9 +1,8 @@
 import flask
 import os
-import json
+import gptInterface
 
 app = flask.Flask(__name__)
-app.config.from_pyfile(os.path.join(os.getcwd(), "config.py"))
 
 @app.route('/')
 def home():
@@ -13,8 +12,16 @@ def home():
 def example_flowchart():
     return flask.render_template('flowchart.html', objects=sample)
 
-def gpt2objects(instring):
-    return json.loads(instring)
+@app.route("/api/gpt-topic", methods=['GET', 'POST'])
+def topicToChart():
+    topic = flask.request.form.get('pname', "default topic")
+    # response = gptInterface.gptFromTopic(topic)
+    return topic
+
+@app.route("/api/gpt-args", methods=['GET', 'POST'])
+def argToChart():
+    topic = flask.request.form.get('aname', "default topic")
+    return topic
 
 sample = [
   {"id": 1, "parent": None, "text": 'You can always find professional homework help online for Python.'},
@@ -61,6 +68,8 @@ sampleString = """
   {"id": 20, "parent": 9, "text": "Python is used in Data Science and analytics, with more job opportunities than the R language."}
 ]}
 """
+
+
 
 if __name__ == '__main__':
     app.run()
