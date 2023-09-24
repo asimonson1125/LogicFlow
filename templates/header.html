@@ -23,8 +23,12 @@
         {% include "splashscreen.html" %}
     </div>
     <div id="nav">
-        <div><img src="{{ url_for('static', filename='img/logo.png')}}" alt="Logo" id="logo"/></div>
-        <div><h1 id="title" style="text-align: center";>LogicFlow</h1></div>
+            <div>
+                <img width="300px" length = "100px" src="https://static-00.iconduck.com/assets.00/openai-icon-505x512-pr6amibw.png" alt="Logo" id="logo"/>
+            </div>
+        <div>
+            <h1>LogicFlow</h1>
+        </div>
     </div>
 
     {% block content %}{%endblock%}
