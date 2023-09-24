@@ -1,5 +1,8 @@
 body {
     margin: 0;
+    background-color: rgb(53, 53, 64);
+    --green: rgb(61, 163, 78);
+    font-family: Söhne, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, Helvetica Neue, Arial, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
 }
 
 #nav {
@@ -7,7 +10,28 @@ body {
     top: 0;
     display: flex;
     justify-content: left;
-    background-color: rgb(107, 203, 112);
+    background-color: var(--green);
+    padding: 0.5em 3em;
+}
+
+h1 {
+    margin: 0;
+    color: black;
+}
+
+input, textarea {
+    background-color: rgb(64, 64, 80);
+    border: none;
+    color: rgb(183, 183, 197);
+    width: 15em;
+}
+
+input::placeholder, textarea::placeholder {
+    color: rgb(142, 142, 160)
+}
+
+form {
+    margin-left: 1em;
 }
 
 .center {
@@ -49,14 +73,15 @@ body {
     height: 100vh;
     position: fixed;
     display: flex;
+    z-index: 6969696969;
     justify-content: center;
 }
 
 #butt {
     position: absolute;
     top: 0;
-    background-color: lightgray;
-    margin-top:200px;
+    background-color: rgb(64, 64, 80);
+    margin-top: 200px;
     padding: 1em;
 }
 
@@ -64,6 +89,45 @@ body {
     display: none !important;
 }
 
+#paper-tools {
+    background-color: rgb(33, 33, 33);
+    height: 2em;
+}
+
 #paper-container {
     overflow: auto;
+}
+
+.headCarrier {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0.25em;
+}
+
+#aboveContent {
+    display: flex;
+    justify-content: start;
+    padding: 1em;
+    margin-top: 0.5em;
+}
+
+#aboveContent>* {
+    margin: 0 0.5em;
+}
+
+.headerText {
+    color: var(--green);
+    border-bottom: solid black 3px;
+    display: inline-block;
+    padding-right: 3em;
+}
+
+.headerBox {
+    background-color: rgb(39, 39, 39);
+    width: 15em;
+    border-radius: 5em;
+    height: 1.3em;
+    padding: 1em;
+    margin-bottom: 0.5em;
 }

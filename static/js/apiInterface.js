@@ -60,6 +60,17 @@ async function submitForm(id) {
       widtharr = [];
       if (obj["parent"] !== "None" && obj["parent"] !== null) {
         var arrow = new joint.shapes.standard.Link();
+        arrow.attr({
+          line: {
+            stroke: "red",
+            strokeWidth: 2,
+            wrapper: {
+              connection: true,
+              strokeWidth: 10,
+              strokeLinejoin: "round",
+            },
+          },
+        });
         parentRect = b["objects"][obj["parent"] - 1];
         if (parentRect["childWidths"] == undefined) {
           parentRect["childWidths"] = rect.attributes.size.width + spaceBetween;
@@ -136,35 +147,11 @@ async function submitForm(id) {
           b["objects"][i]["reference"].attributes.size.width / 2 +
           (parentRect["widthBelow"] / parentRect["children"].length) *
             parentRect["children"].indexOf(b["objects"][i]);
-        // xpos =
-        //   startWidth + b["objects"][i]["widthBelow"] / 2 - b["objects"][i]['reference'].attributes.size.width/2 +
-        //   (parentRect["widthBelow"] / parentRect["children"].length) *
-        //     parentRect["children"].indexOf(b["objects"][i]);
       }
       b["objects"][i]["reference"].position(xpos, height);
-      // let additional = 0;
-      // if (parentRect == undefined){
-      //   cw = colWidth;
-      // }
-      // else if (parentRect['childrenUsed'] == undefined){
-      //   b["objects"][i]["childWidths"] == undefined ? parentRect['childrenUsed'] = b['objects'][i]['reference'].attributes.size.width + spaceBetween : parentRect['childrenUsed'] = b["objects"][i]["childWidths"];
-      //   cw = colWidth/parentRect['children'].length;
-      // } else {
-      //   additional = parentRect['childrenUsed'];
-      //   cw = (colWidth/parentRect['children'].length);
-      //   parentRect['childrenUsed'] += b['objects'][i]['reference'].attributes.size.width + spaceBetween
-      // }
-      // b["objects"][i]["reference"].position(startWidth + (cw/2) + additional, height);
     }
 
-    paper.transformToFitContent();
-
-    document.getElementById("flowchart");
-    flowchart.innerHTML = "";
-    for (let i = 0; i < b["objects"].length; i++) {
-      let obj = b["objects"][i];
-      flowchart.innerHTML += `<div id="${obj["id"]}" class="node"><p>${obj["text"]}</p></div>`;
-    }
+    paper.transformToFitContent({ padding: 10 });
   } finally {
     document.getElementById("splash").classList.add("hidden");
   }

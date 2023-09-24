@@ -1,28 +1,32 @@
-<form id="gpt-topic" action="javascript:submitForm('gpt-topic')" style = "padding-left: 25px">
-  <label for="pname">Topic:</label><br />
-  <input class="inputpad" type="text" id="pname" name="pname" /><br />
-  <input type="submit" value="Submit" />
-</form>
+<div id="aboveContent">
+  <div id="topicHolder" class="starters">
+    <div class="headerBox"><div class="headerText">Start From Topic</div></div>
+    <form
+      id="gpt-topic"
+      action="javascript:submitForm('gpt-topic')"
+    >
+      <input placeholder="Topic..." class="inputpad" type="text" id="pname" name="pname" /><br />
+      <input type="submit" value="Submit" />
+    </form>
+  </div>
 
-<form id="gpt-args" action="javascript:submitForm('gpt-args')" style = "padding-left: 25px">
-  <label for="aname">Argument:</label><br />
-  <textarea class="inputpad" type="text" id="aname" name="aname">
-stuff blfe kfkjr</textarea
-  ><br />
-  <input type="submit" value="Submit" />
-</form>
-
-<!-- content -->
-<div id="paper-container">
-  <div id="jointPaper"></div>
+  <div id="argsHolder" class="starters">
+    <div class="headerBox"><div class="headerText">Start From Discussion</div></div>
+    <form
+      id="gpt-args"
+      action="javascript:submitForm('gpt-args')"
+    >
+      <textarea class="inputpad" placeholder="Discussion..." type="text" id="aname" name="aname"></textarea
+      ><br />
+      <input type="submit" value="Submit" />
+    </form>
+  </div>
 </div>
 
-<div id="flowchart">
-  {% for i in objects %}
-  <div id="{{i['id']}}" class="node">
-    <p>{{i['text']}}</p>
-  </div>
-  {% endfor %}
+<!-- content -->
+<div id="paper-tools"></div>
+<div id="paper-container">
+  <div id="jointPaper"></div>
 </div>
 
 <script>
@@ -40,9 +44,9 @@ stuff blfe kfkjr</textarea
     gridSize: 25,
     drawGrid: true,
     background: {
-      color: "rgba(200, 200, 200, 0.3)",
+      color: "rgba(33,33,33,0.7)",
     },
-    overflow: true
+    overflow: true,
   });
   // paper.scale(0.4, 0.4)
 

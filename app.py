@@ -16,16 +16,16 @@ def example_flowchart():
 @app.route("/api/gpt-topic", methods=['GET', 'POST'])
 def topicToChart():
     data = json.loads(flask.request.data.decode("utf-8") )
-    response = gptInterface.gptFromTopic(data['pname'])
-    output = json.loads(response)
-    return output
+    # response = gptInterface.gptFromTopic(data['pname'])
+    # output = json.loads(response)
+    return sample
 
 @app.route("/api/gpt-args", methods=['GET', 'POST'])
 def argToChart():
     data = json.loads(flask.request.data.decode("utf-8") )
-    response = gptInterface.gptFromTopic(data['aname'])
-    output = json.loads(response)
-    return output
+    # response = gptInterface.gptFromTopic(data['aname'])
+    # output = json.loads(response)
+    return sample
 
 sample = {"objects": [
   {"id": 1, "parent": None, "text": 'You can always find professional homework help online for Python.'},
