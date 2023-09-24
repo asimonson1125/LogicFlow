@@ -1,6 +1,6 @@
 import flask
 import os
-import json
+import gptInterface
 
 app = flask.Flask(__name__)
 
@@ -12,8 +12,16 @@ def home():
 def example_flowchart():
     return flask.render_template('flowchart.html', objects=sample)
 
-def gpt2objects(instring):
-    return json.loads(instring)
+@app.route("/api/gpt-topic", methods=['GET', 'POST'])
+def topicToChart():
+    topic = flask.request.form.get('pname', "default topic")
+    # response = gptInterface.gptFromTopic(topic)
+    return topic
+
+@app.route("/api/gpt-args", methods=['GET', 'POST'])
+def argToChart():
+    topic = flask.request.form.get('aname', "default topic")
+    return topic
 
 sample = [
   {"id": 1, "parent": None, "text": 'You can always find professional homework help online for Python.'},
