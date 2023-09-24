@@ -13,7 +13,9 @@ stuff blfe kfkjr</textarea
 </form>
 
 <!-- content -->
-<div id="jointPaper"></div>
+<div id="paper-container">
+  <div id="jointPaper"></div>
+</div>
 
 <div id="flowchart">
   {% for i in objects %}
@@ -31,11 +33,18 @@ stuff blfe kfkjr</textarea
   var paper = new joint.dia.Paper({
     el: document.getElementById("jointPaper"),
     model: graph,
-    width: 600,
-    height: 100,
+    width: screen.width,
+    height: Math.max(screen.height - 400, 500),
     gridSize: 1,
     cellViewNamespace: namespace,
+    gridSize: 25,
+    drawGrid: true,
+    background: {
+      color: "rgba(200, 200, 200, 0.3)",
+    },
+    overflow: true
   });
+  // paper.scale(0.4, 0.4)
 
   var rect = new joint.shapes.standard.Rectangle();
   rect.position(100, 30);
@@ -56,11 +65,10 @@ stuff blfe kfkjr</textarea
   rect2.attr("label/text", "World!");
   rect2.addTo(graph);
 
-  let rects = [rect, rect2];
-</script>
+  var link3 = new joint.shapes.standard.Link();
+  link3.source(rect2);
+  link3.target(rect);
+  link3.addTo(graph);
 
-<!-- dependencies -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.1/backbone.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jointjs/3.7.5/joint.js"></script>
+  let objects = [rect, rect2, link3];
+</script>

@@ -16,18 +16,18 @@ def example_flowchart():
 @app.route("/api/gpt-topic", methods=['GET', 'POST'])
 def topicToChart():
     data = json.loads(flask.request.data.decode("utf-8") )
-    response = gptInterface.gptFromTopic(data['pname'])
-    output = json.loads(response)
-    return output
+    # response = gptInterface.gptFromTopic(data['pname'])
+    # output = json.loads(response)
+    return sample
 
 @app.route("/api/gpt-args", methods=['GET', 'POST'])
 def argToChart():
     data = json.loads(flask.request.data.decode("utf-8") )
-    response = gptInterface.gptFromTopic(data['aname'])
-    output = json.loads(response)
-    return output
+    # response = gptInterface.gptFromTopic(data['aname'])
+    # output = json.loads(response)
+    return sample
 
-sample = [
+sample = {"objects": [
   {"id": 1, "parent": None, "text": 'You can always find professional homework help online for Python.'},
   {"id": 2, "parent": 1, "text": 'Experts provide Python homework help at an affordable price.'},
   {"id": 3, "parent": 2, "text": 'Quality solutions without plagiarism are delivered on time.'},
@@ -46,7 +46,7 @@ sample = [
   {"id": 16, "parent": None, "text": 'Python is Reliable.'},
   {"id": 17, "parent": 16, "text": 'Python is trusted for critical systems, including in banking and finance.'},
   {"id": 18, "parent": 17, "text": 'Python\'s concise code reduces the likelihood of errors and eases debugging.'}
-]
+]}
 
 sampleString = """
 {"objects": [

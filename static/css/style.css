@@ -63,3 +63,7 @@ body {
 .hidden {
     display: none !important;
 }
+
+#paper-container {
+    overflow: auto;
+}
