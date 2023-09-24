@@ -1,5 +1,4 @@
 import flask
-import os
 import json
 import gptInterface
 
