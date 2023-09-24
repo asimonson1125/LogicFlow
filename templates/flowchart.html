@@ -1,19 +1,66 @@
-<form action="/api/gpt-topic" method="post">
-    <label for="pname">Topic:</label><br>
-    <input class = "inputpad" type="text" id="pname" name="pname"><br>
-    <input type="submit" value="Submit">
+<form id="gpt-topic" action="javascript:submitForm('gpt-topic')">
+  <label for="pname">Topic:</label><br />
+  <input class="inputpad" type="text" id="pname" name="pname" /><br />
+  <input type="submit" value="Submit" />
 </form>
 
-<form action="/api/gpt-args" method="post">
-    <label for="aname">Argument:</label><br>
-    <textarea class = "inputpad" type="text" id="aname" name="aname">stuff blfe kfkjr</textarea><br>
-    <input type="submit" value="Submit">
+<form id="gpt-args" action="javascript:submitForm('gpt-args')">
+  <label for="aname">Argument:</label><br />
+  <textarea class="inputpad" type="text" id="aname" name="aname">
+stuff blfe kfkjr</textarea
+  ><br />
+  <input type="submit" value="Submit" />
 </form>
+
+<!-- content -->
+<div id="jointPaper"></div>
 
 <div id="flowchart">
-{% for i in objects %}
-<div id="{{i['id']}}" class="node">
+  {% for i in objects %}
+  <div id="{{i['id']}}" class="node">
     <p>{{i['text']}}</p>
+  </div>
+  {% endfor %}
 </div>
-{% endfor %}
-</div>
+
+<script>
+  var namespace = joint.shapes;
+
+  var graph = new joint.dia.Graph({}, { cellNamespace: namespace });
+
+  var paper = new joint.dia.Paper({
+    el: document.getElementById("jointPaper"),
+    model: graph,
+    width: 600,
+    height: 100,
+    gridSize: 1,
+    cellViewNamespace: namespace,
+  });
+
+  var rect = new joint.shapes.standard.Rectangle();
+  rect.position(100, 30);
+  rect.resize(100, 40);
+  rect.attr({
+    body: {
+      fill: "blue",
+    },
+    label: {
+      text: "Hello",
+      fill: "white",
+    },
+  });
+  rect.addTo(graph);
+
+  var rect2 = rect.clone();
+  rect2.translate(300, 0);
+  rect2.attr("label/text", "World!");
+  rect2.addTo(graph);
+
+  let rects = [rect, rect2];
+</script>
+
+<!-- dependencies -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.1/backbone.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jointjs/3.7.5/joint.js"></script>

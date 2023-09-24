@@ -27,8 +27,8 @@ This time, I want you to create the objects (~15 sounds good) from the following
 
 Please format these objects as follows:
 {"objects": 
-[{id: 1, parent: "None", text: "Text of the first claim."},
-{id: 2, parent: 1, text: "Text of the second claim that justifies the first claim."},
+[{"id": 1, "parent": "None", "text": "Text of the first claim."},
+{"id": 2, "parent": 1, "text": "Text of the second claim that justifies the first claim."},
 {...}]
 }
 
@@ -48,8 +48,8 @@ This time I want you to generate objects that disprove the claim below (it's id 
 
 Please format these objects as follows:
 {"objects": 
-[{id: 1, parent: "None", text: "Text of the first claim."},
-{id: 2, parent: 1, text: "Text of the second claim that justifies the first claim."},
+[{"id": 1, "parent": "None", "text": "Text of the first claim."},
+{"id": 2, "parent": 1, "text": "Text of the second claim that justifies the first claim."},
 {...}]
 }
 
@@ -70,8 +70,8 @@ Here's the text I'd like you to process into these objects:
 
 Please format these objects as follows:
 {"objects": 
-[{id: 1, parent: "None", text: "Text of the first claim."},
-{id: 2, parent: 1, text: "Text of the second claim that justifies the first claim."},
+[{"id": 1, "parent": "None", "text": "Text of the first claim."},
+{"id": 2, "parent": 1, "text": "Text of the second claim that justifies the first claim."},
 {...}]
 }
 

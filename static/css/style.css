@@ -15,7 +15,7 @@ body {
     width: 50%;
     border: 3px solid green;
     padding: 10px;
-  }  
+}
 
 .bold {
     font-weight: bolder;
@@ -44,7 +44,23 @@ body {
     padding: 0.5em;
 }
 
+#splash {
+    width: 100vw;
+    background-color: rgba(40, 40, 40, 0.7);
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+}
+
 #butt {
     position: absolute;
     top: 0;
+    background-color: lightgray;
+    margin-top:200px;
+    padding: 1em;
+}
+
+.hidden {
+    display: none !important;
 }

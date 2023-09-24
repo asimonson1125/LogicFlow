@@ -1,12 +1,13 @@
 import flask
 import os
+import json
 import gptInterface
 
 app = flask.Flask(__name__)
 
 @app.route('/')
 def home():
-    return flask.render_template('index.html', name="jim", objects=sample)
+    return flask.render_template('index.html', objects=sample)
 
 @app.route('/example')
 def example_flowchart():
@@ -14,14 +15,17 @@ def example_flowchart():
 
 @app.route("/api/gpt-topic", methods=['GET', 'POST'])
 def topicToChart():
-    topic = flask.request.form.get('pname', "default topic")
-    # response = gptInterface.gptFromTopic(topic)
-    return topic
+    data = json.loads(flask.request.data.decode("utf-8") )
+    response = gptInterface.gptFromTopic(data['pname'])
+    output = json.loads(response)
+    return output
 
 @app.route("/api/gpt-args", methods=['GET', 'POST'])
 def argToChart():
-    topic = flask.request.form.get('aname', "default topic")
-    return topic
+    data = json.loads(flask.request.data.decode("utf-8") )
+    response = gptInterface.gptFromTopic(data['aname'])
+    output = json.loads(response)
+    return output
 
 sample = [
   {"id": 1, "parent": None, "text": 'You can always find professional homework help online for Python.'},

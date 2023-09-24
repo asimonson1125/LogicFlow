@@ -12,16 +12,23 @@
       type="text/javascript"
     ></script>
 
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jointjs/3.7.5/joint.css" />
+
     <title>LogicFlow</title>
 </head>
 {% endblock %}
 
 <body>
+    <div id="splash" class="hidden">
+        {% include "splashscreen.html" %}
+    </div>
     <div id="nav">
         <div><img src="{{ url_for('static', filename='img/logo.png')}}" alt="Logo" id="logo"/></div>
         <div><h1 id="title" style="text-align: center";>LogicFlow</h1></div>
     </div>
 
+    {% block content %}{%endblock%}
+<!-- 
     <form><h2 style="text-align:center;"></p>
         <label for="wname">What's Your Project:</label><br>
         <input type="text" id="wname" name="wname" size="50"><br>
@@ -29,6 +36,6 @@
         <label for="aname">Argument:</label><br>
         <input type="text" id="aname" name="aname" size="50"><br>
         <input type="submit" value="Submit"><br>
-      </form>
+      </form> -->
 
 </body>
