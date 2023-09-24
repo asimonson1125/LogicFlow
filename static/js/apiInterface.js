@@ -1,5 +1,7 @@
 const spaceBetween = 30;
 let b;
+let selected = null;
+
 async function submitForm(id) {
   document.getElementById("splash").classList.remove("hidden");
   try {
@@ -20,6 +22,7 @@ async function submitForm(id) {
     });
     b = await a.json();
 
+    objects = graph.getCells()
     for (let i = 0; i < objects.length; i++) {
       objects[i].remove();
     }
@@ -27,33 +30,9 @@ async function submitForm(id) {
     for (let i = 0; i < b["objects"].length; i++) {
       let obj = b["objects"][i];
       var rect = new joint.shapes.standard.Rectangle();
-      var textWidth = obj["text"].length * 8; // Adjust this factor as
       obj["children"] = [];
-      let lines = 1;
-      if (textWidth > 208) {
-        textWidth = 208;
-        newtext = obj["text"];
-        obj["text"] = "";
-        while (newtext.length > 26) {
-          lines++;
-          last = newtext.substring(0, 26).lastIndexOf(" ");
-          obj["text"] += newtext.substring(0, last) + "\n";
-          newtext = newtext.substring(last + 1);
-        }
-        obj["text"] += newtext;
-      }
-      var textHeight = 20 * lines + 10; // You can adjust this height as needed
-      rect.resize(textWidth, textHeight); // Set the size based on text
-      rect.attr({
-        body: {
-          fill: "lightgray",
-        },
-        label: {
-          text: obj["text"],
-          fill: "black",
-        },
-      });
       rect.addTo(graph);
+      setupRect(obj, rect);
 
       let parentRect = null;
       // let parentloc = {x: paper.options.width/2, y: 0};
@@ -62,7 +41,7 @@ async function submitForm(id) {
         var arrow = new joint.shapes.standard.Link();
         arrow.attr({
           line: {
-            stroke: "red",
+            stroke: "white",
             strokeWidth: 2,
             wrapper: {
               connection: true,
@@ -94,8 +73,8 @@ async function submitForm(id) {
         parentRect["children"].push(obj);
         // parentloc = parentRect.attributes.position
 
-        arrow.source(parentRect["reference"]);
         arrow.target(rect);
+        arrow.source(parentRect["reference"]);
         arrow.addTo(graph);
         objects.push(arrow);
       }
@@ -152,6 +131,10 @@ async function submitForm(id) {
     }
 
     paper.transformToFitContent({ padding: 10 });
+    document.getElementById('paper-container').scrollTo({top:0, left:0})
+    paper.setOrigin(10, 10);
+    document.getElementById('scaler').value = 1;
+    scalePaper(1);
   } finally {
     document.getElementById("splash").classList.add("hidden");
   }
@@ -162,11 +145,85 @@ function calcChildWidth(current) {
   for (let i = 0; i < current["children"].length; i++) {
     total += calcChildWidth(current["children"][i]);
   }
-  console.log(current);
   if (current["children"].length == 0 || current["children"] == undefined) {
     total = current["reference"].attributes.size.width + spaceBetween;
   }
   current["widthBelow"] = total;
-  console.log(total, current);
   return total;
+}
+
+function setupRect(obj, rect) {
+  var textWidth = obj["text"].length * 8; // Adjust this factor as
+  let lines = 1;
+  if (textWidth > 208) {
+    textWidth = 208;
+    newtext = obj["text"];
+    obj["text"] = "";
+    while (newtext.length > 26) {
+      lines++;
+      last = newtext.substring(0, 26).lastIndexOf(" ");
+      obj["text"] += newtext.substring(0, last) + "\n";
+      newtext = newtext.substring(last + 1);
+    }
+    obj["text"] += newtext;
+  }
+  var textHeight = 20 * lines + 10; // You can adjust this height as needed
+  rect.resize(textWidth, textHeight); // Set the size based on text
+  rect.attr({
+    body: {
+      class: "jj-step-body"
+    },
+    label: {
+      text: obj["text"],
+      class: "jj-step-text",
+    },
+  });
+
+  paper.findViewByModel(rect).on("cell:pointerclick", function () {
+    console.log('Rectangle clicked');
+    selectObject(rect);
+  });
+}
+
+function selectObject(object) {
+  let t = ""
+  for (let i = 0; i < b["objects"].length; i++) {
+    if (b['objects'][i]['reference'] == object){
+      t = b["objects"][i].text.replaceAll("\n", " ");
+      selected = b["objects"][i];
+      break;
+    }
+  }
+  document.getElementById("textEditor").value = t;
+  document.getElementById("objDelete").onclick = () => {
+    object.remove();
+  };
+}
+
+function updateText(){
+  let t = document.getElementById('textEditor').value;
+  selected['text'] = t;
+  setupRect(selected, selected['reference']);
+}
+
+
+function addBox() {
+  obj = { text: "New Box Text...", parent: null, children: [] };
+  let rect = new joint.shapes.standard.Rectangle();
+  obj["reference"] = rect;
+  rect.addTo(graph);
+  setupRect(obj, rect);
+  if(b == undefined) {
+    b = {"objects": []}
+  }
+  b["objects"].push(obj);
+}
+
+function scalePaper(scale){
+  paper.scale(scale, scale);
+}
+
+function scalePaper(){
+  let scale = document.getElementById('scaler').value;
+  paper.scale(scale,scale);
 }

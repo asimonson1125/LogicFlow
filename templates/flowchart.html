@@ -26,8 +26,17 @@
 <!-- content -->
 <div id="paper-tools">
   <div>
-    <input type="submit" value="&#43;" class="div1"/>
-    <input type="submit" value="&#8722;" class="div1"/>
+    <button type="button" class="div1" onclick="addBox()">&#43;</button>
+    <button id="objDelete" type="button" class="div1">&#8722;</button>
+  </div>
+  <div class="grower"></div>
+  <div>
+    <input id="textEditor" placeholder="element text..." onchange="updateText()">
+  </div>
+  <div class="grower"></div>
+  <div>
+    <label for="scaler">Scale:</label>
+    <input type="number" name="scaler" id="scaler" step="0.25" value="1" placeholder="scale" onchange="scalePaper()"/>
   </div>
 </div>
 <div id="paper-container">
@@ -39,11 +48,13 @@
 
   var graph = new joint.dia.Graph({}, { cellNamespace: namespace });
 
+  let canvas = document.getElementById("jointPaper");
+
   var paper = new joint.dia.Paper({
-    el: document.getElementById("jointPaper"),
+    el: canvas,
     model: graph,
-    width: screen.width,
-    height: Math.max(screen.height - 400, 500),
+    width: 3000,
+    height: 3000,
     gridSize: 1,
     cellViewNamespace: namespace,
     gridSize: 25,
@@ -51,7 +62,7 @@
     background: {
       color: "rgba(33,33,33,0.7)",
     },
-    overflow: true,
+    overflow: false,
   });
   // paper.scale(0.4, 0.4)
 
