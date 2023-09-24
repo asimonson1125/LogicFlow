@@ -43,3 +43,8 @@ body {
 .inputpad {
     padding: 0.5em;
 }
+
+#butt {
+    position: absolute;
+    top: 0;
+}
